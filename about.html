@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookBloom | Η Ιδέα</title>
+  <meta name="description" content="Η ιδέα του BookBloom: σχολικός συνεταιρισμός για τη δημιουργία σχολικής βιβλιοθήκης μέσα από συνεργασία και μαθητική συμμετοχή." />
+
+  <style>
+    :root {
+      --bg: #080706;
+      --bg2: #15100b;
+      --card: rgba(255, 248, 236, 0.09);
+      --card2: rgba(255, 248, 236, 0.14);
+      --text: #fff8ec;
+      --muted: rgba(255, 248, 236, 0.74);
+      --gold: #e7b86b;
+      --gold2: #ffd990;
+      --brown: #8b4f25;
+      --green: #7ba05b;
+      --rose: #c67a63;
+      --border: rgba(231, 184, 107, 0.28);
+      --shadow: 0 28px 80px rgba(0,0,0,0.38);
+      --radius: 28px;
+      --max: 1180px;
+      --fontScale: 1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: calc(16px * var(--fontScale));
+    }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(231, 184, 107, 0.25), transparent 28rem),
+        radial-gradient(circle at 85% 0%, rgba(123, 160, 91, 0.18), transparent 27rem),
+        radial-gradient(circle at 50% 85%, rgba(198, 122, 99, 0.13), transparent 32rem),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body.high-contrast {
+      --bg: #000;
+      --bg2: #000;
+      --card: rgba(255,255,255,0.12);
+      --card2: rgba(255,255,255,0.18);
+      --text: #ffffff;
+      --muted: #ffffff;
+      --gold: #ffff00;
+      --gold2: #ffff66;
+      --green: #00ff88;
+      --rose: #ffb3b3;
+      --border: rgba(255,255,0,0.65);
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container {
+      width: min(100% - 34px, var(--max));
+      margin: 0 auto;
+    }
+
+    .glass {
+      background: linear-gradient(145deg, var(--card), rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 7, 6, 0.72);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(231, 184, 107, 0.18);
+    }
+
+    .topbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      font-size: 1.25rem;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: linear-gradient(145deg, var(--gold), var(--brown));
+      color: #1f1308;
+      box-shadow: 0 16px 36px rgba(231,184,107,0.25);
+      font-size: 1.35rem;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 0.72rem;
+      letter-spacing: 0;
+      margin-top: -4px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a, .tool-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-weight: 750;
+      padding: 9px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    nav a:hover, nav a.active, .tool-btn:hover {
+      color: var(--text);
+      border-color: rgba(231,184,107,0.34);
+      background: rgba(231,184,107,0.11);
+    }
+
+    .tools {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--border);
+      background: rgba(231,184,107,0.12);
+      color: var(--text);
+      padding: 10px 13px;
+      border-radius: 14px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      padding: 95px 0 70px;
+      min-height: 72vh;
+      display: grid;
+      align-items: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(8,7,6,0.32), rgba(8,7,6,0.88)),
+        url("https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1800&q=80") center/cover;
+      opacity: 0.42;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 150px;
+      background: linear-gradient(transparent, var(--bg));
+      z-index: -1;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(231,184,107,0.38);
+      background: rgba(231,184,107,0.12);
+      color: var(--gold2);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 850;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 7vw, 6.4rem);
+      line-height: 0.92;
+      letter-spacing: -0.085em;
+      margin-bottom: 18px;
+      text-shadow: 0 18px 60px rgba(0,0,0,0.48);
+    }
+
+    .lead {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 28px;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 999px;
+      padding: 13px 19px;
+      font-weight: 900;
+      border: 1px solid transparent;
+      transition: 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(145deg, var(--gold), var(--brown));
+      color: #1d1208;
+      box-shadow: 0 20px 42px rgba(231,184,107,0.23);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn:hover { transform: translateY(-3px); }
+
+    .identity-card {
+      border-radius: 34px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .identity-card::before {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(231,184,107,0.16);
+    }
+
+    .identity-card h2 {
+      position: relative;
+      color: var(--gold2);
+      font-size: 2.1rem;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      margin-bottom: 16px;
+    }
+
+    .identity-list {
+      position: relative;
+      display: grid;
+      gap: 12px;
+    }
+
+    .identity-list div {
+      padding: 14px 15px;
+      border-radius: 18px;
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(231,184,107,0.22);
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    section { padding: 82px 0; }
+
+    .section-heading {
+      max-width: 860px;
+      margin-bottom: 34px;
+    }
+
+    .label {
+      color: var(--gold2);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    h2 {
+      font-size: clamp(2.1rem, 4.8vw, 4rem);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      padding: 25px;
+      transition: 0.25s ease;
+      min-height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: var(--card2);
+    }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(231,184,107,0.15);
+      border: 1px solid rgba(231,184,107,0.28);
+      color: var(--gold2);
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 1.28rem;
+      letter-spacing: -0.03em;
+      color: var(--gold2);
+      margin-bottom: 10px;
+    }
+
+    .card p, .card li { color: var(--muted); }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .sticky-note {
+      position: sticky;
+      top: 105px;
+      border-radius: var(--radius);
+      padding: 30px;
+      background: linear-gradient(145deg, rgba(231,184,107,0.18), rgba(123,160,91,0.12));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .big-quote {
+      border-radius: 34px;
+      padding: 34px;
+      background: linear-gradient(135deg, rgba(231,184,107,0.22), rgba(123,160,91,0.13));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .big-quote blockquote {
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      line-height: 1.12;
+      letter-spacing: -0.05em;
+      color: var(--gold2);
+      font-weight: 900;
+    }
+
+    .big-quote p {
+      color: var(--muted);
+      margin-top: 14px;
+      font-size: 1.05rem;
+    }
+
+    .music-status {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 1500;
+      max-width: calc(100% - 36px);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--text);
+      background: rgba(0,0,0,0.64);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      font-weight: 750;
+      display: none;
+    }
+
+    .music-status.show { display: block; }
+
+    footer {
+      padding: 42px 0;
+      border-top: 1px solid rgba(231,184,107,0.18);
+      background: rgba(0,0,0,0.28);
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    footer p { color: var(--muted); }
+
+    .backtop {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 15px;
+      color: var(--gold2);
+      font-weight: 850;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid, .split { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: repeat(2, 1fr); }
+      .sticky-note { position: static; }
+    }
+
+    @media (max-width: 780px) {
+      .topbar { align-items: flex-start; padding: 14px 0; }
+      .menu-btn { display: inline-flex; }
+      nav {
+        position: absolute;
+        left: 17px;
+        right: 17px;
+        top: 82px;
+        display: none;
+        border-radius: 24px;
+        padding: 14px;
+        background: rgba(8,7,6,0.96);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; align-items: stretch; }
+      nav a { justify-content: center; }
+      .tools {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 1600;
+        background: rgba(0,0,0,0.72);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 8px;
+        backdrop-filter: blur(14px);
+      }
+      .hero { min-height: auto; padding-top: 54px; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="ytPlayer" style="position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; left: -9999px; top: -9999px;" aria-hidden="true"></div>
+  <div id="musicStatus" class="music-status">🎵 Πάτα Music για να ξεκινήσει η μουσική.</div>
+
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html" aria-label="Αρχική σελίδα BookBloom">
+        <span class="brand-mark">🌸</span>
+        <span>BookBloom <small>Η Βιβλιοθήκη που Ανθίζει</small></span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn">Μενού</button>
+
+      <nav id="nav" aria-label="Κεντρική πλοήγηση">
+        <ul>
+          <li><a href="index.html">Αρχική</a></li>
+          <li><a class="active" href="about.html">Η Ιδέα</a></li>
+          <li><a href="framework.html">Πλαίσιο</a></li>
+          <li><a href="roles.html">Ρόλοι</a></li>
+          <li><a href="actions.html">Δράσεις</a></li>
+          <li><a href="library.html">Βιβλιοθήκη</a></li>
+          <li><a href="bloomcast.html">BloomCast</a></li>
+        </ul>
+      </nav>
+
+      <div class="tools" aria-label="Εργαλεία προσβασιμότητας και μουσικής">
+        <button class="tool-btn" id="fontDown">A−</button>
+        <button class="tool-btn" id="fontUp">A+</button>
+        <button class="tool-btn" id="contrastBtn">Contrast</button>
+        <button class="tool-btn" id="musicBtn">Music</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Η ταυτότητα του συνεταιρισμού</span>
+          <h1>Η Ιδέα του BookBloom</h1>
+          <p class="lead">
+            Το BookBloom γεννήθηκε από μια απλή αλλά ουσιαστική ανάγκη: να αποκτήσουν οι μαθητές πρόσβαση σε έναν ζωντανό χώρο γνώσης, ανάγνωσης και δημιουργίας. Η σχολική βιβλιοθήκη δεν είναι απλώς ένα δωμάτιο με βιβλία· είναι ένας κοινός τόπος συνεργασίας, δημοκρατίας και παιδαγωγικής εμπειρίας.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#meaning">Τι σημαίνει BookBloom</a>
+            <a class="btn btn-secondary" href="framework.html">Συνέχεια: Πλαίσιο</a>
+          </div>
+        </div>
+
+        <aside class="identity-card glass">
+          <h2>BookBloom</h2>
+          <div class="identity-list">
+            <div>📖 Book: το βιβλίο, η ανάγνωση, η πρόσβαση στη γνώση.</div>
+            <div>🌸 Bloom: η άνθιση, η εξέλιξη, η δημιουργική ανάπτυξη.</div>
+            <div>🤝 Συνεργασία: μαθητές, εκπαιδευτικοί, γονείς και κοινότητα.</div>
+            <div>✨ Στόχος: μια βιβλιοθήκη που ανθίζει μέσα από τη συμμετοχή.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="meaning">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">Brand concept</span>
+          <h2>Γιατί BookBloom;</h2>
+          <p>
+            Η ονομασία BookBloom συνδυάζει το βιβλίο με την έννοια της άνθισης. Συμβολίζει μια βιβλιοθήκη που δεν υπάρχει απλώς ως υποδομή, αλλά αναπτύσσεται μέσα από την ενεργό συμμετοχή των μαθητών και τη συνεργασία της σχολικής κοινότητας.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card glass">
+            <div class="icon">📚</div>
+            <h3>Το βιβλίο ως αφετηρία</h3>
+            <p>Το βιβλίο λειτουργεί ως μέσο πρόσβασης στη γνώση, στη φαντασία, στη γλωσσική ανάπτυξη και στην προσωπική καλλιέργεια των μαθητών.</p>
+          </article>
+          <article class="card glass">
+            <div class="icon">🌿</div>
+            <h3>Η άνθιση ως σύμβολο</h3>
+            <p>Η γνώση ανθίζει όταν οι μαθητές συμμετέχουν ενεργά, αναλαμβάνουν ρόλους και νιώθουν ότι συμβάλλουν σε κάτι που τους ανήκει.</p>
+          </article>
+          <article class="card glass">
+            <div class="icon">🏫</div>
+            <h3>Το σχολείο ως κοινότητα</h3>
+            <p>Το σχολείο μετατρέπεται από χώρο διδασκαλίας σε χώρο συλλογικής δημιουργίας, κοινωνικής συμμετοχής και δημοκρατικής παιδείας.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container split">
+        <div class="sticky-note">
+          <span class="label">Η βασική φιλοσοφία</span>
+          <h2>Οι μαθητές δεν βρίσκουν τη βιβλιοθήκη έτοιμη. Τη δημιουργούν.</h2>
+          <p>
+            Αυτό είναι το στοιχείο που κάνει το BookBloom καινοτόμο: η βιβλιοθήκη δεν παρουσιάζεται ως παροχή από τους ενήλικες, αλλά ως αποτέλεσμα μαθητικής πρωτοβουλίας, συνεργασίας και συμμετοχικής δράσης.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card glass">
+            <div class="icon">🛠️</div>
+            <h3>Δημιουργία μέσα από πράξη</h3>
+            <p>Οι μαθητές συμμετέχουν στη συλλογή βιβλίων, στην οργάνωση του χώρου, στην ταξινόμηση και στη λειτουργία του δανεισμού.</p>
+          </article>
+          <article class="card glass">
+            <div class="icon">🗳️</div>
+            <h3>Δημοκρατική λειτουργία</h3>
+            <p>Οι αποφάσεις λαμβάνονται συλλογικά, οι ρόλοι κατανέμονται με υπευθυνότητα και η δράση βασίζεται στη συμμετοχή.</p>
+          </article>
+          <article class="card glass">
+            <div class="icon">💶</div>
+            <h3>Οικονομική δράση με σκοπό</h3>
+            <p>Η πώληση γλυκισμάτων δεν είναι απλώς συγκέντρωση χρημάτων· είναι μάθημα διαχείρισης πόρων και κοινωνικής ευθύνης.</p>
+          </article>
+          <article class="card glass">
+            <div class="icon">🌍</div>
+            <h3>Σύνδεση με την κοινότητα</h3>
+            <p>Γονείς, κάτοικοι και τοπικοί φορείς συμμετέχουν μέσω δωρεών, υποστήριξης και διάδοσης της δράσης.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="big-quote">
+          <blockquote>«Μια σελίδα. Μια ομάδα. Μια βιβλιοθήκη που ανθίζει.»</blockquote>
+          <p>
+            Το slogan συνοψίζει ολόκληρη την ταυτότητα του BookBloom: η γνώση ξεκινά από μια σελίδα, αναπτύσσεται μέσα από μια ομάδα και μετατρέπεται σε μια βιβλιοθήκη που ανήκει σε όλους.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>
+        <strong>BookBloom | Η Βιβλιοθήκη που Ανθίζει</strong>
+        <p>Μια σελίδα. Μια ομάδα. Μια βιβλιοθήκη που ανθίζει.</p>
+      </div>
+      <a class="backtop" href="framework.html">Επόμενη σελίδα →</a>
+    </div>
+  </footer>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    const root = document.documentElement;
+    const nav = document.getElementById('nav');
+    const menuBtn = document.getElementById('menuBtn');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicStatus = document.getElementById('musicStatus');
+    const fontDown = document.getElementById('fontDown');
+    const fontUp = document.getElementById('fontUp');
+    const contrastBtn = document.getElementById('contrastBtn');
+
+    let fontScale = 1;
+    let ytPlayer;
+    let isMusicPlaying = false;
+
+    window.onYouTubeIframeAPIReady = function () {
+      ytPlayer = new YT.Player('ytPlayer', {
+        height: '1',
+        width: '1',
+        videoId: 'uEKT1cYRuYs',
+        playerVars: {
+          autoplay: 0,
+          controls: 0,
+          loop: 1,
+          playlist: 'uEKT1cYRuYs',
+          modestbranding: 1
+        }
+      });
+    };
+
+    menuBtn.addEventListener('click', () => nav.classList.toggle('open'));
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+
+    fontDown.addEventListener('click', () => {
+      fontScale = Math.max(0.88, fontScale - 0.06);
+      root.style.setProperty('--fontScale', fontScale);
+    });
+
+    fontUp.addEventListener('click', () => {
+      fontScale = Math.min(1.22, fontScale + 0.06);
+      root.style.setProperty('--fontScale', fontScale);
+    });
+
+    contrastBtn.addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast');
+    });
+
+    const showMusicMessage = (message) => {
+      musicStatus.textContent = message;
+      musicStatus.classList.add('show');
+      setTimeout(() => musicStatus.classList.remove('show'), 3600);
+    };
+
+    musicBtn.addEventListener('click', () => {
+      if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') {
+        showMusicMessage('⏳ Η μουσική φορτώνει. Ξαναπάτα σε λίγα δευτερόλεπτα.');
+        return;
+      }
+
+      if (!isMusicPlaying) {
+        ytPlayer.playVideo();
+        isMusicPlaying = true;
+        musicBtn.textContent = 'Pause';
+        showMusicMessage('🎵 Η μουσική παίζει.');
+      } else {
+        ytPlayer.pauseVideo();
+        isMusicPlaying = false;
+        musicBtn.textContent = 'Music';
+        showMusicMessage('⏸️ Η μουσική σταμάτησε.');
+      }
+    });
+  </script>
+</body>
+</html>
