@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BookBloom | Αξιολόγηση</title>
+  <meta name="description" content="Αξιολόγηση και αποτίμηση του BookBloom: δείκτες επιτυχίας, ερωτηματολόγια, αναστοχασμός και βελτίωση." />
+
+  <style>
+    :root {
+      --bg: #080706;
+      --bg2: #15100b;
+      --card: rgba(255, 248, 236, 0.09);
+      --card2: rgba(255, 248, 236, 0.14);
+      --text: #fff8ec;
+      --muted: rgba(255, 248, 236, 0.74);
+      --gold: #e7b86b;
+      --gold2: #ffd990;
+      --brown: #8b4f25;
+      --green: #7ba05b;
+      --rose: #c67a63;
+      --border: rgba(231, 184, 107, 0.28);
+      --shadow: 0 28px 80px rgba(0,0,0,0.38);
+      --radius: 28px;
+      --max: 1180px;
+      --fontScale: 1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: calc(16px * var(--fontScale)); }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(231, 184, 107, 0.25), transparent 28rem),
+        radial-gradient(circle at 85% 0%, rgba(123, 160, 91, 0.18), transparent 27rem),
+        radial-gradient(circle at 48% 86%, rgba(198, 122, 99, 0.13), transparent 32rem),
+        linear-gradient(135deg, var(--bg), var(--bg2));
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body.high-contrast {
+      --bg: #000;
+      --bg2: #000;
+      --card: rgba(255,255,255,0.12);
+      --card2: rgba(255,255,255,0.18);
+      --text: #ffffff;
+      --muted: #ffffff;
+      --gold: #ffff00;
+      --gold2: #ffff66;
+      --green: #00ff88;
+      --rose: #ffb3b3;
+      --border: rgba(255,255,0,0.65);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(100% - 34px, var(--max)); margin: 0 auto; }
+
+    .glass {
+      background: linear-gradient(145deg, var(--card), rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 7, 6, 0.72);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(231, 184, 107, 0.18);
+    }
+
+    .topbar {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      font-size: 1.25rem;
+      min-width: max-content;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      background: linear-gradient(145deg, var(--gold), var(--brown));
+      color: #1f1308;
+      box-shadow: 0 16px 36px rgba(231,184,107,0.25);
+      font-size: 1.35rem;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-weight: 650;
+      font-size: 0.72rem;
+      letter-spacing: 0;
+      margin-top: -4px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    nav a,
+    .tool-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font: inherit;
+      font-weight: 750;
+      padding: 9px 12px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      white-space: nowrap;
+    }
+
+    nav a:hover,
+    nav a.active,
+    .tool-btn:hover {
+      color: var(--text);
+      border-color: rgba(231,184,107,0.34);
+      background: rgba(231,184,107,0.11);
+    }
+
+    .tools { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; min-width: max-content; }
+
+    .menu-btn {
+      display: none;
+      border: 1px solid var(--border);
+      background: rgba(231,184,107,0.12);
+      color: var(--text);
+      padding: 10px 13px;
+      border-radius: 14px;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .hero {
+      position: relative;
+      padding: 95px 0 70px;
+      min-height: 72vh;
+      display: grid;
+      align-items: center;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(8,7,6,0.32), rgba(8,7,6,0.9)),
+        url("https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1800&q=80") center/cover;
+      opacity: 0.42;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 150px;
+      background: linear-gradient(transparent, var(--bg));
+      z-index: -1;
+    }
+
+    .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(231,184,107,0.38);
+      background: rgba(231,184,107,0.12);
+      color: var(--gold2);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 850;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 7vw, 6.2rem);
+      line-height: 0.92;
+      letter-spacing: -0.085em;
+      margin-bottom: 18px;
+      text-shadow: 0 18px 60px rgba(0,0,0,0.48);
+    }
+
+    .lead { max-width: 760px; color: var(--muted); font-size: 1.15rem; margin-bottom: 28px; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border-radius: 999px;
+      padding: 13px 19px;
+      font-weight: 900;
+      border: 1px solid transparent;
+      transition: 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary { background: linear-gradient(145deg, var(--gold), var(--brown)); color: #1d1208; box-shadow: 0 20px 42px rgba(231,184,107,0.23); }
+    .btn-secondary { background: rgba(255,255,255,0.08); border-color: var(--border); color: var(--text); }
+    .btn:hover { transform: translateY(-3px); }
+
+    .hero-card {
+      border-radius: 34px;
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      background: rgba(231,184,107,0.16);
+    }
+
+    .hero-card h2 { position: relative; color: var(--gold2); font-size: 2.1rem; line-height: 1; letter-spacing: -0.055em; margin-bottom: 16px; }
+
+    .summary-list { position: relative; display: grid; gap: 12px; }
+    .summary-list div { padding: 14px 15px; border-radius: 18px; background: rgba(0,0,0,0.20); border: 1px solid rgba(231,184,107,0.22); color: var(--muted); font-weight: 700; }
+
+    section { padding: 82px 0; }
+    .section-heading { max-width: 900px; margin-bottom: 34px; }
+
+    .label { color: var(--gold2); font-weight: 900; text-transform: uppercase; letter-spacing: 0.13em; font-size: 0.78rem; margin-bottom: 10px; display: block; }
+    h2 { font-size: clamp(2.1rem, 4.8vw, 4rem); line-height: 0.98; letter-spacing: -0.07em; margin-bottom: 15px; }
+    .section-heading p { color: var(--muted); font-size: 1.08rem; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+    .card, .indicator-card {
+      border-radius: var(--radius);
+      padding: 25px;
+      transition: 0.25s ease;
+      min-height: 100%;
+    }
+
+    .card:hover, .indicator-card:hover { transform: translateY(-5px); background: var(--card2); }
+
+    .icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      background: rgba(231,184,107,0.15);
+      border: 1px solid rgba(231,184,107,0.28);
+      color: var(--gold2);
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3, .indicator-card h3 { font-size: 1.28rem; letter-spacing: -0.03em; color: var(--gold2); margin-bottom: 10px; }
+    .card p, .indicator-card p, .card li { color: var(--muted); }
+    .card ul { padding-left: 20px; margin-top: 10px; }
+
+    .indicator-number {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      background: linear-gradient(145deg, var(--gold), var(--brown));
+      color: #1d1208;
+      font-weight: 950;
+      margin-bottom: 16px;
+    }
+
+    .metric {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1;
+      font-weight: 950;
+      color: var(--gold2);
+      letter-spacing: -0.06em;
+      margin-bottom: 10px;
+    }
+
+    .split { display: grid; grid-template-columns: 0.92fr 1.08fr; gap: 30px; align-items: start; }
+
+    .sticky-note {
+      position: sticky;
+      top: 105px;
+      border-radius: var(--radius);
+      padding: 30px;
+      background: linear-gradient(145deg, rgba(231,184,107,0.18), rgba(123,160,91,0.12));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .timeline { display: grid; gap: 14px; }
+    .timeline-item { display: grid; grid-template-columns: 62px 1fr; gap: 16px; border-radius: 24px; padding: 18px; }
+    .timeline-number { width: 56px; height: 56px; display: grid; place-items: center; border-radius: 20px; background: linear-gradient(145deg, var(--gold), var(--brown)); color: #1d1208; font-weight: 950; }
+    .timeline-item h3 { color: var(--gold2); letter-spacing: -0.03em; margin-bottom: 5px; }
+    .timeline-item p { color: var(--muted); }
+
+    .highlight-band {
+      border-radius: 34px;
+      padding: 34px;
+      background: linear-gradient(135deg, rgba(231,184,107,0.22), rgba(123,160,91,0.13));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      align-items: center;
+    }
+
+    .mini-list { display: grid; gap: 10px; }
+    .mini-list div { padding: 13px 15px; border-radius: 16px; background: rgba(0,0,0,0.18); border: 1px solid rgba(231,184,107,0.22); font-weight: 800; color: var(--muted); }
+
+    .rubric {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+    }
+
+    .rubric th, .rubric td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid rgba(231,184,107,0.18);
+      color: var(--muted);
+      vertical-align: top;
+    }
+
+    .rubric th {
+      color: var(--gold2);
+      background: rgba(231,184,107,0.10);
+      font-weight: 900;
+    }
+
+    .rubric tr:last-child td { border-bottom: 0; }
+
+    .big-quote {
+      border-radius: 34px;
+      padding: 34px;
+      background: linear-gradient(135deg, rgba(231,184,107,0.22), rgba(123,160,91,0.13));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .big-quote blockquote { font-size: clamp(1.35rem, 3vw, 2.35rem); line-height: 1.12; letter-spacing: -0.05em; color: var(--gold2); font-weight: 900; }
+    .big-quote p { color: var(--muted); margin-top: 14px; font-size: 1.05rem; }
+
+    .music-status {
+      position: fixed;
+      left: 18px;
+      bottom: 18px;
+      z-index: 1500;
+      max-width: calc(100% - 36px);
+      border-radius: 999px;
+      padding: 10px 14px;
+      color: var(--text);
+      background: rgba(0,0,0,0.64);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+      font-weight: 750;
+      display: none;
+    }
+
+    .music-status.show { display: block; }
+
+    .music-player {
+      position: fixed;
+      right: 18px;
+      bottom: 88px;
+      z-index: 1550;
+      width: min(360px, calc(100% - 36px));
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(8,7,6,0.92);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: 0.25s ease;
+    }
+
+    .music-player.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+    .music-player-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; color: var(--gold2); font-weight: 900; border-bottom: 1px solid rgba(231,184,107,0.18); }
+    .music-close { border: 1px solid var(--border); background: rgba(255,255,255,0.08); color: var(--text); border-radius: 999px; padding: 7px 10px; cursor: pointer; font-weight: 800; }
+    .music-frame-wrap { aspect-ratio: 16 / 9; background: #000; }
+    .music-frame-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    footer { padding: 42px 0; border-top: 1px solid rgba(231,184,107,0.18); background: rgba(0,0,0,0.28); }
+    footer .container { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+    footer p { color: var(--muted); }
+    .backtop { border: 1px solid var(--border); border-radius: 999px; padding: 10px 15px; color: var(--gold2); font-weight: 850; }
+
+    @media (max-width: 1180px) {
+      .topbar { flex-wrap: wrap; padding: 12px 0; }
+      nav { order: 3; width: 100%; }
+      nav ul { justify-content: center; }
+    }
+
+    @media (max-width: 1060px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } }
+
+    @media (max-width: 980px) {
+      .hero-grid, .split, .highlight-band { grid-template-columns: 1fr; }
+      .grid-3, .grid-2 { grid-template-columns: 1fr; }
+      .sticky-note { position: static; }
+      .rubric { display: block; overflow-x: auto; white-space: nowrap; }
+    }
+
+    @media (max-width: 780px) {
+      .topbar { align-items: flex-start; padding: 14px 0; }
+      .menu-btn { display: inline-flex; }
+      nav {
+        position: absolute;
+        left: 17px;
+        right: 17px;
+        top: 82px;
+        width: auto;
+        display: none;
+        border-radius: 24px;
+        padding: 14px;
+        background: rgba(8,7,6,0.96);
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+      }
+      nav.open { display: block; }
+      nav ul { flex-direction: column; align-items: stretch; }
+      nav a { justify-content: center; display: flex; }
+      .tools {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 1600;
+        background: rgba(0,0,0,0.72);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 8px;
+        backdrop-filter: blur(14px);
+      }
+      .hero { min-height: auto; padding-top: 54px; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .music-player { bottom: 92px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="musicStatus" class="music-status">🎵 Πάτα Music για να εμφανιστεί ο μουσικός player.</div>
+
+  <div class="music-player" id="musicPlayer" aria-label="YouTube μουσικός player">
+    <div class="music-player-header">
+      <span>🎵 BookBloom Music</span>
+      <button class="music-close" id="closeMusic">Κλείσιμο</button>
+    </div>
+    <div class="music-frame-wrap" id="musicFrameWrap"></div>
+  </div>
+
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html" aria-label="Αρχική σελίδα BookBloom">
+        <span class="brand-mark">🌸</span>
+        <span>BookBloom <small>Η Βιβλιοθήκη που Ανθίζει</small></span>
+      </a>
+
+      <button class="menu-btn" id="menuBtn">Μενού</button>
+
+      <nav id="nav" aria-label="Κεντρική πλοήγηση">
+        <ul>
+          <li><a href="index.html">Αρχική</a></li>
+          <li><a href="about.html">Η Ιδέα</a></li>
+          <li><a href="framework.html">Πλαίσιο</a></li>
+          <li><a href="roles.html">Ρόλοι</a></li>
+          <li><a href="actions.html">Δράσεις</a></li>
+          <li><a href="library.html">Βιβλιοθήκη</a></li>
+          <li><a href="bloomcast.html">BloomCast</a></li>
+          <li><a class="active" href="evaluation.html">Αξιολόγηση</a></li>
+          <li><a href="future.html">Βιωσιμότητα</a></li>
+        </ul>
+      </nav>
+
+      <div class="tools" aria-label="Εργαλεία προσβασιμότητας και μουσικής">
+        <button class="tool-btn" id="fontDown">A−</button>
+        <button class="tool-btn" id="fontUp">A+</button>
+        <button class="tool-btn" id="contrastBtn">Contrast</button>
+        <button class="tool-btn" id="musicBtn">Music</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">Αποτίμηση • Δείκτες • Αναστοχασμός</span>
+          <h1>Αξιολόγηση</h1>
+          <p class="lead">
+            Η αξιολόγηση του BookBloom δεν περιορίζεται στο αν συγκεντρώθηκαν βιβλία. Εξετάζει αν οι μαθητές συνεργάστηκαν, αν ενισχύθηκε η φιλαναγνωσία, αν η βιβλιοθήκη λειτούργησε ουσιαστικά και αν η σχολική κοινότητα απέκτησε έναν ζωντανό χώρο γνώσης.
+          </p>
+          <div class="btn-row">
+            <a class="btn btn-primary" href="#indicators">Δες τους δείκτες</a>
+            <a class="btn btn-secondary" href="future.html">Συνέχεια: Βιωσιμότητα</a>
+          </div>
+        </div>
+
+        <aside class="hero-card glass">
+          <h2>Τι αξιολογούμε;</h2>
+          <div class="summary-list">
+            <div>📚 Τον αριθμό και την ποιότητα των βιβλίων που συγκεντρώθηκαν.</div>
+            <div>🤝 Τη συμμετοχή μαθητών, γονέων, εκπαιδευτικών και κοινότητας.</div>
+            <div>🧠 Την καλλιέργεια δεξιοτήτων συνεργασίας και υπευθυνότητας.</div>
+            <div>📖 Τη χρήση της βιβλιοθήκης και τη συχνότητα δανεισμού.</div>
+            <div>🌱 Τη συνέχεια και βελτίωση της δράσης.</div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="indicators">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">1. Δείκτες επιτυχίας</span>
+          <h2>Η επιτυχία μετριέται ποσοτικά και ποιοτικά.</h2>
+          <p>
+            Η αποτίμηση του συνεταιρισμού χρειάζεται συγκεκριμένα κριτήρια, ώστε η ομάδα να γνωρίζει τι πέτυχε, τι χρειάζεται ενίσχυση και ποια βήματα πρέπει να ακολουθήσει στη συνέχεια.
+          </p>
+        </div>
+
+        <div class="grid-4">
+          <article class="indicator-card glass">
+            <div class="indicator-number">01</div>
+            <h3>Συγκέντρωση βιβλίων</h3>
+            <p>Καταγράφεται ο αριθμός βιβλίων, η κατάσταση τους και η καταλληλότητά τους για σχολική χρήση.</p>
+          </article>
+          <article class="indicator-card glass">
+            <div class="indicator-number">02</div>
+            <h3>Συμμετοχή</h3>
+            <p>Αξιολογείται πόσοι μαθητές, γονείς, εκπαιδευτικοί και φορείς συμμετείχαν στις δράσεις.</p>
+          </article>
+          <article class="indicator-card glass">
+            <div class="indicator-number">03</div>
+            <h3>Δανεισμός</h3>
+            <p>Παρακολουθείται η χρήση της βιβλιοθήκης μέσα από καταγραφές δανεισμού και επιστροφών.</p>
+          </article>
+          <article class="indicator-card glass">
+            <div class="indicator-number">04</div>
+            <h3>Συνεργασία</h3>
+            <p>Εξετάζεται αν οι ομάδες λειτούργησαν οργανωμένα, υπεύθυνα και δημοκρατικά.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="container">
+        <div class="highlight-band">
+          <div>
+            <span class="label">2. Αρχική διερεύνηση</span>
+            <h2>Η ανάγκη τεκμηριώνεται πριν από τη δράση.</h2>
+            <p>
+              Η αξιολόγηση ξεκινά από τη διερεύνηση αναγκών. Τα ερωτηματολόγια βοηθούν την ομάδα να αποτυπώσει τη στάση των μαθητών απέναντι στη δημιουργία σχολικής βιβλιοθήκης και να στηρίξει την πρόταση με δεδομένα.
+            </p>
+          </div>
+          <div class="grid-2">
+            <div class="card glass">
+              <div class="metric">300</div>
+              <h3>Ερωτηματολόγια</h3>
+              <p>Διανεμήθηκαν στους μαθητές για να καταγραφεί η ανάγκη και η αποδοχή της ιδέας.</p>
+            </div>
+            <div class="card glass">
+              <div class="metric">245</div>
+              <h3>Θετικές απαντήσεις</h3>
+              <p>Η πλειονότητα των μαθητών δήλωσε θετική στάση απέναντι στη δημιουργία βιβλιοθήκης.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="methods">
+      <div class="container split">
+        <div class="sticky-note">
+          <span class="label">3. Μέθοδοι αξιολόγησης</span>
+          <h2>Η αποτίμηση γίνεται με πολλαπλές πηγές.</h2>
+          <p>
+            Για να είναι αξιόπιστη η αξιολόγηση, δεν στηρίζεται μόνο σε μία μέθοδο. Συνδυάζει ερωτηματολόγια, παρατήρηση, καταγραφές, συζητήσεις και αναστοχασμό των μαθητών.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="timeline-item glass">
+            <div class="timeline-number">Ε</div>
+            <div><h3>Ερωτηματολόγια</h3><p>Μαθητές και εκπαιδευτικοί απαντούν σε σύντομες ερωτήσεις για τη χρησιμότητα της βιβλιοθήκης, τη συμμετοχή και τη βελτίωση της δράσης.</p></div>
+          </article>
+          <article class="timeline-item glass">
+            <div class="timeline-number">Π</div>
+            <div><h3>Παρατήρηση</h3><p>Οι εκπαιδευτικοί παρατηρούν τη συνεργασία των ομάδων, την ανάληψη πρωτοβουλιών και τη συνέπεια των μαθητών.</p></div>
+          </article>
+          <article class="timeline-item glass">
+            <div class="timeline-number">Κ</div>
+            <div><h3>Καταγραφή δανεισμών</h3><p>Το αρχείο δανεισμού δείχνει πόσο χρησιμοποιείται η βιβλιοθήκη και ποια είδη βιβλίων προτιμώνται.</p></div>
+          </article>
+          <article class="timeline-item glass">
+            <div class="timeline-number">Α</div>
+            <div><h3>Αναστοχασμός</h3><p>Οι μαθητές συζητούν τι λειτούργησε, τι δυσκόλεψε την ομάδα και πώς μπορεί η βιβλιοθήκη να βελτιωθεί.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="rubric">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">4. Ενδεικτικός πίνακας αξιολόγησης</span>
+          <h2>Η ομάδα βλέπει καθαρά την πρόοδό της.</h2>
+          <p>
+            Ο παρακάτω πίνακας μπορεί να χρησιμοποιηθεί ως εργαλείο συνοπτικής αποτίμησης του BookBloom στο τέλος της δράσης ή ανά τακτά χρονικά διαστήματα.
+          </p>
+        </div>
+
+        <table class="rubric">
+          <thead>
+            <tr>
+              <th>Κριτήριο</th>
+              <th>Τι εξετάζεται</th>
+              <th>Ένδειξη επιτυχίας</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Συμμετοχή</td>
+              <td>Ενεργή εμπλοκή μαθητών, γονέων και εκπαιδευτικών.</td>
+              <td>Σταθερή παρουσία στις δράσεις και ανάληψη ρόλων.</td>
+            </tr>
+            <tr>
+              <td>Οργάνωση</td>
+              <td>Σαφής κατανομή εργασιών, τήρηση χρονοδιαγράμματος και συνεργασία ομάδων.</td>
+              <td>Ομαλή υλοποίηση δράσεων χωρίς σημαντικές καθυστερήσεις.</td>
+            </tr>
+            <tr>
+              <td>Λειτουργία βιβλιοθήκης</td>
+              <td>Ταξινόμηση βιβλίων, καταγραφή δανεισμών και τήρηση κανόνων.</td>
+              <td>Συστηματική χρήση της βιβλιοθήκης από τους μαθητές.</td>
+            </tr>
+            <tr>
+              <td>Παιδαγωγικό αποτέλεσμα</td>
+              <td>Ενίσχυση φιλαναγνωσίας, συνεργασίας και κοινωνικής υπευθυνότητας.</td>
+              <td>Θετική ανατροφοδότηση και αυξημένο ενδιαφέρον για βιβλία.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="questions">
+      <div class="container">
+        <div class="section-heading">
+          <span class="label">5. Ενδεικτικές ερωτήσεις αναστοχασμού</span>
+          <h2>Η ομάδα μαθαίνει μέσα από την εμπειρία της.</h2>
+          <p>
+            Οι ερωτήσεις αυτές μπορούν να χρησιμοποιηθούν σε συζήτηση τάξης, σε φύλλο αναστοχασμού ή σε σύντομο ερωτηματολόγιο μετά την ολοκλήρωση μιας δράσης.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card glass">
+            <div class="icon">💬</div>
+            <h3>Για τους μαθητές</h3>
+            <ul>
+              <li>Τι έμαθα μέσα από τη συμμετοχή μου;</li>
+              <li>Πώς συνεργάστηκα με την ομάδα μου;</li>
+              <li>Τι θα άλλαζα στην επόμενη δράση;</li>
+            </ul>
+          </article>
+          <article class="card glass">
+            <div class="icon">👩‍🏫</div>
+            <h3>Για τους εκπαιδευτικούς</h3>
+            <ul>
+              <li>Πώς ανταποκρίθηκαν οι μαθητές στους ρόλους τους;</li>
+              <li>Ποιες δεξιότητες καλλιεργήθηκαν περισσότερο;</li>
+              <li>Ποια σημεία χρειάζονται καλύτερη οργάνωση;</li>
+            </ul>
+          </article>
+          <article class="card glass">
+            <div class="icon">🌸</div>
+            <h3>Για την κοινότητα</h3>
+            <ul>
+              <li>Πώς υποστηρίχθηκε η βιβλιοθήκη;</li>
+              <li>Ποιες δωρεές ή συνεργασίες ήταν χρήσιμες;</li>
+              <li>Πώς μπορεί να συνεχιστεί η προσπάθεια;</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="big-quote">
+          <blockquote>Η αξιολόγηση του BookBloom δεν είναι το τέλος της δράσης· είναι η αρχή της επόμενης βελτίωσης.</blockquote>
+          <p>
+            Μέσα από την αποτίμηση, οι μαθητές μαθαίνουν να σκέφτονται κριτικά, να αναγνωρίζουν την πρόοδο τους και να μετατρέπουν την εμπειρία σε σχέδιο συνέχειας.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div>
+        <strong>BookBloom | Αξιολόγηση</strong>
+        <p>Μια σελίδα. Μια ομάδα. Μια βιβλιοθήκη που ανθίζει.</p>
+      </div>
+      <a class="backtop" href="future.html">Επόμενη σελίδα →</a>
+    </div>
+  </footer>
+
+  <script>
+    const root = document.documentElement;
+    const nav = document.getElementById('nav');
+    const menuBtn = document.getElementById('menuBtn');
+    const fontDown = document.getElementById('fontDown');
+    const fontUp = document.getElementById('fontUp');
+    const contrastBtn = document.getElementById('contrastBtn');
+
+    const musicBtn = document.getElementById('musicBtn');
+    const musicPlayer = document.getElementById('musicPlayer');
+    const musicFrameWrap = document.getElementById('musicFrameWrap');
+    const closeMusic = document.getElementById('closeMusic');
+    const musicStatus = document.getElementById('musicStatus');
+
+    const youtubeMusicUrl = 'https://www.youtube.com/embed/uEKT1cYRuYs?autoplay=1&loop=1&playlist=uEKT1cYRuYs&rel=0&modestbranding=1';
+
+    let fontScale = 1;
+
+    menuBtn.addEventListener('click', () => {
+      nav.classList.toggle('open');
+    });
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('open'));
+    });
+
+    fontDown.addEventListener('click', () => {
+      fontScale = Math.max(0.88, fontScale - 0.06);
+      root.style.setProperty('--fontScale', fontScale);
+    });
+
+    fontUp.addEventListener('click', () => {
+      fontScale = Math.min(1.22, fontScale + 0.06);
+      root.style.setProperty('--fontScale', fontScale);
+    });
+
+    contrastBtn.addEventListener('click', () => {
+      document.body.classList.toggle('high-contrast');
+    });
+
+    const showMusicMessage = (message) => {
+      musicStatus.textContent = message;
+      musicStatus.classList.add('show');
+      setTimeout(() => musicStatus.classList.remove('show'), 4200);
+    };
+
+    musicBtn.addEventListener('click', () => {
+      musicPlayer.classList.add('open');
+
+      if (!musicFrameWrap.querySelector('iframe')) {
+        musicFrameWrap.innerHTML = `
+          <iframe
+            src="${youtubeMusicUrl}"
+            title="BookBloom Music"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+          </iframe>
+        `;
+      }
+
+      showMusicMessage('🎵 Ο μουσικός player άνοιξε. Αν δεν ξεκινήσει αυτόματα, πάτα play μέσα στο βίντεο.');
+    });
+
+    closeMusic.addEventListener('click', () => {
+      musicPlayer.classList.remove('open');
+      musicFrameWrap.innerHTML = '';
+      showMusicMessage('⏸️ Η μουσική σταμάτησε.');
+    });
+  </script>
+</body>
+</html>
