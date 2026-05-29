@@ -456,6 +456,26 @@
       filter: sepia(20%) saturate(115%);
     }
 
+    .media-card { grid-column: 1 / -1; }
+
+    .video-wrap {
+      margin-top: 18px;
+      aspect-ratio: 16 / 9;
+      border-radius: 24px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(231,184,107,0.24);
+      box-shadow: 0 18px 48px rgba(0,0,0,0.28);
+    }
+
+    .video-wrap video,
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
+
     .audio-note {
       margin-top: 12px;
       font-size: 0.9rem;
@@ -737,7 +757,7 @@
           <span class="label">2. Ηχητική γκαλερί σχολικής έκφρασης</span>
           <h2>Φωνές που ζωντανεύουν τη σχολική εμπειρία.</h2>
           <p>
-            Στην ενότητα αυτή παρουσιάζονται ηχητικά αποσπάσματα σχολικής ραδιοφωνικής έκφρασης, τα οποία αναδεικνύουν τη ζωντάνια της παιδικής φωνής, τη συλλογική δημιουργία και τη δύναμη του προφορικού λόγου μέσα στην εκπαιδευτική κοινότητα.
+            Στην ενότητα αυτή παρουσιάζονται ηχητικά και οπτικοακουστικά αποσπάσματα σχολικής ραδιοφωνικής έκφρασης, τα οποία αναδεικνύουν τη ζωντάνια της παιδικής φωνής, τη συλλογική δημιουργία και τη δύναμη του προφορικού λόγου μέσα στην εκπαιδευτική κοινότητα.
           </p>
         </div>
 
@@ -800,6 +820,27 @@
               Ο browser σου δεν υποστηρίζει αναπαραγωγή ήχου.
             </audio>
             <p class="audio-note">Αρχείο στο GitHub: audio/thrania-radiokomites-2024.mp3</p>
+          </article>
+
+          <article class="audio-card glass media-card">
+            <div class="audio-top">
+              <div class="episode-number">05</div>
+              <span class="tag">2026 • Video Podcast</span>
+            </div>
+            <h3>Συνέντευξη / Podcast με τον κ. Μπαλτά και την κ. Μπρίνια</h3>
+            <p>
+              Βιντεοσκοπημένη συνέντευξη στο πλαίσιο του BloomCast, με συζήτηση που συνδέει τη σχολική βιβλιοθήκη,
+              τη φιλαναγνωσία και τη ζωντανή συμμετοχή της εκπαιδευτικής κοινότητας.
+            </p>
+
+            <div class="video-wrap">
+              <video controls preload="metadata">
+                <source src="video/synentefxi-baltas-brinia.mp4" type="video/mp4">
+                Ο browser σου δεν υποστηρίζει αναπαραγωγή βίντεο.
+              </video>
+            </div>
+
+            <p class="audio-note">Αρχείο στο GitHub: video/synentefxi-baltas-brinia.mp4</p>
           </article>
         </div>
       </div>
